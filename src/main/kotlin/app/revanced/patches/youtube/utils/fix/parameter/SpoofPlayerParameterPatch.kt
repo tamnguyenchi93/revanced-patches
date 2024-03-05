@@ -5,6 +5,7 @@ import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
 import app.revanced.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.revanced.patcher.extensions.InstructionExtensions.getInstruction
 import app.revanced.patcher.extensions.InstructionExtensions.removeInstruction
+import app.revanced.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.revanced.patcher.patch.BytecodePatch
 import app.revanced.patcher.patch.annotation.CompatiblePackage
 import app.revanced.patcher.patch.annotation.Patch
@@ -17,12 +18,15 @@ import app.revanced.patches.youtube.utils.fix.parameter.fingerprints.StoryboardR
 import app.revanced.patches.youtube.utils.fix.parameter.fingerprints.StoryboardRendererSpecFingerprint
 import app.revanced.patches.youtube.utils.fix.parameter.fingerprints.StoryboardThumbnailFingerprint
 import app.revanced.patches.youtube.utils.fix.parameter.fingerprints.StoryboardThumbnailParentFingerprint
+import app.revanced.patches.youtube.utils.fix.parameter.fingerprints.StatsQueryParameterFingerprint
+import app.revanced.patches.youtube.utils.fix.parameter.fingerprints.ParamsMapPutFingerprint
 import app.revanced.patches.youtube.utils.integrations.Constants.MISC_PATH
 import app.revanced.patches.youtube.utils.playerresponse.PlayerResponsePatch
 import app.revanced.patches.youtube.utils.playertype.PlayerTypeHookPatch
 import app.revanced.patches.youtube.utils.settings.SettingsPatch
 import app.revanced.patches.youtube.utils.videoid.general.VideoIdPatch
-import app.revanced.util.exception
+import app.revanced.util.*
+import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 @Patch(
@@ -74,7 +78,9 @@ object SpoofPlayerParameterPatch : BytecodePatch(
         StoryboardRendererDecoderRecommendedLevelFingerprint,
         StoryboardRendererDecoderSpecFingerprint,
         StoryboardRendererSpecFingerprint,
-        StoryboardThumbnailParentFingerprint
+        StoryboardThumbnailParentFingerprint,
+        StatsQueryParameterFingerprint,
+        ParamsMapPutFingerprint,
     )
 ) {
     private const val INTEGRATIONS_CLASS_DESCRIPTOR =
@@ -197,6 +203,37 @@ object SpoofPlayerParameterPatch : BytecodePatch(
                         """
             )
         } ?: throw StoryboardRendererDecoderSpecFingerprint.exception
+
+        // Fix stats not being tracked.
+        // Due to signature spoofing "adformat" is present in query parameters made for /stats requests,
+        // even though, for regular videos, it should not be.
+        // This breaks stats tracking.
+        // Replace the ad parameter with the video parameter in the query parameters.
+        StatsQueryParameterFingerprint.result?.let {
+            val putMethod = ParamsMapPutFingerprint.result?.method?.toString()
+                ?: throw ParamsMapPutFingerprint.exception
+
+            it.mutableMethod.apply {
+                val adParamIndex = it.scanResult.stringsScanResult!!.matches.first().index
+                val videoParamIndex = adParamIndex + 3
+
+                // Replace the ad parameter with the video parameter.
+                replaceInstruction(adParamIndex, getInstruction(videoParamIndex))
+
+                // Call paramsMap.put instead of paramsMap.putIfNotExist
+                // because the key is already present in the map.
+                val putAdParamIndex = adParamIndex + 1
+                val putIfKeyNotExistsInstruction = getInstruction<FiveRegisterInstruction>(putAdParamIndex)
+                replaceInstruction(
+                    putAdParamIndex,
+                    "invoke-virtual { " +
+                        "v${putIfKeyNotExistsInstruction.registerC}, " +
+                        "v${putIfKeyNotExistsInstruction.registerD}, " +
+                        "v${putIfKeyNotExistsInstruction.registerE} }, " +
+                        putMethod,
+                )
+            }
+        } ?: throw StatsQueryParameterFingerprint.exception
 
         /**
          * Add settings
