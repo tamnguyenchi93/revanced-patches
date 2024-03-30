@@ -226,6 +226,12 @@
             <string name="revanced_hide_video_ads_summary_on">Video ads are hidden</string>
             <string name="revanced_hide_video_ads_summary_off">Video ads are shown</string>
         </patch>
+        <patch id="interaction.alwaysrepeat.AlwaysRepeatResourcePatch">
+            <string name="revanced_always_repeat_success">Always repeat success</string>
+            <string name="revanced_always_repeat_title">Show always repeat button</string>
+            <string name="revanced_always_repeat_summary_on">Button is shown. Tap to repeat video</string>
+            <string name="revanced_always_repeat_summary_off">Button is not shown</string>
+        </patch>
         <patch id="interaction.copyvideourl.CopyVideoUrlResourcePatch">
             <string name="revanced_share_copy_url_success">URL copied to clipboard</string>
             <string name="revanced_share_copy_url_timestamp_success">URL with timestamp copied</string>
