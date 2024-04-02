@@ -161,6 +161,10 @@ object SettingsPatch :
             key = "revanced_settings_screen_12_video",
             summaryKey = null,
         )
+        val OVERLAY_BUTTONS = Screen(
+            key = "revanced_settings_screen_13_overlay_buttons",
+            summaryKey = null,
+        )
 
         override fun commit(screen: app.revanced.patches.shared.misc.settings.preference.PreferenceScreen) {
             SettingsResourcePatch += screen

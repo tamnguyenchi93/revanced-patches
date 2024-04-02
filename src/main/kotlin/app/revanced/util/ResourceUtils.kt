@@ -164,3 +164,24 @@ internal fun Node.addResource(
 }
 
 internal fun org.w3c.dom.Document.getNode(tagName: String) = this.getElementsByTagName(tagName).item(0)
+
+/**
+ * Copy resources from the current class loader to the resource directory.
+ * @param resourceDirectory The directory of the resource.
+ * @param targetResource The target resource.
+ * @param elementTag The element to copy.
+ */
+fun ResourceContext.copyXmlNode(
+    resourceDirectory: String,
+    targetResource: String,
+    elementTag: String
+) {
+    val stringsResourceInputStream =
+        classLoader.getResourceAsStream("$resourceDirectory/$targetResource")!!
+
+    // Copy nodes from the resources node to the real resource node
+    elementTag.copyXmlNode(
+        this.xmlEditor[stringsResourceInputStream],
+        this.xmlEditor["res/$targetResource"]
+    ).close()
+}

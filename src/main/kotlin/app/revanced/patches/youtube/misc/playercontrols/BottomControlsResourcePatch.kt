@@ -6,10 +6,13 @@ import app.revanced.patcher.patch.annotation.Patch
 import app.revanced.patcher.util.DomFileEditor
 import app.revanced.patches.shared.misc.mapping.ResourceMappingPatch
 import java.io.Closeable
+import app.revanced.util.doRecursively
+import org.w3c.dom.Element
 
 @Patch(dependencies = [ResourceMappingPatch::class])
 object BottomControlsResourcePatch : ResourcePatch(), Closeable {
     internal var bottomUiContainerResourceId: Long = -1
+    internal var bottomPaddingSize: String = ""
 
     private const val TARGET_RESOURCE_NAME = "youtube_controls_bottom_ui_container.xml"
     private const val TARGET_RESOURCE = "res/layout/$TARGET_RESOURCE_NAME"
@@ -69,5 +72,63 @@ object BottomControlsResourcePatch : ResourcePatch(), Closeable {
         sourceDocumentEditor.close()
     }
 
-    override fun close() = targetDocumentEditor.close()
+    override fun close() {
+        if (bottomPaddingSize == "") return
+        val targetDocument = targetDocumentEditor.file
+
+        targetDocument.doRecursively loop@{
+            if (it !is Element) return@loop
+
+            // Change the relationship between buttons
+            it.getAttributeNode("yt:layout_constraintRight_toLeftOf")?.let { attribute ->
+                if (attribute.textContent == "@id/fullscreen_button") {
+                    attribute.textContent = "@+id/speed_dialog_button"
+                }
+            }
+
+            // Adjust Fullscreen Button size and padding
+            it.getAttributeNode("android:id")?.let { attribute ->
+                arrayOf(
+                    "speed_dialog_button",
+                    "copy_video_url_button",
+                    "copy_video_url_timestamp_button",
+                    "always_repeat_button",
+                    "external_download_button",
+                    "fullscreen_button"
+                ).forEach { targetId ->
+                    if (attribute.textContent.endsWith(targetId)) {
+                        arrayOf(
+                            "0.0dip" to arrayOf("paddingLeft", "paddingRight"),
+                            bottomPaddingSize to arrayOf("paddingBottom"),
+                            "48.0dip" to arrayOf("layout_height", "layout_width")
+                        ).forEach { (replace, attributes) ->
+                            attributes.forEach { name ->
+                                it.getAttributeNode("android:$name").textContent = replace
+                            }
+                        }
+                    }
+                }
+            }
+
+            // if (WiderBottomPadding == false) {
+            //     // Adjust TimeBar and Chapter bottom padding
+            //     arrayOf(
+            //         "@id/time_bar_chapter_title" to "14.0dip",
+            //         "@id/timestamps_container" to "12.0dip"
+            //     ).forEach { (id, replace) ->
+            //         it.getAttributeNode("android:id")?.let { attribute ->
+            //             if (attribute.textContent == id) {
+            //                 it.getAttributeNode("android:paddingBottom").textContent = replace
+            //             }
+            //         }
+            //     }
+            // }
+        }
+        targetDocumentEditor.close()
+    }
+    
+    fun setBottomPadding(bottomPadding: String) {
+        bottomPaddingSize = bottomPadding
+    }
+
 }

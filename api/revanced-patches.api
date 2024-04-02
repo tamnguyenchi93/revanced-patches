@@ -1454,6 +1454,12 @@ public final class app/revanced/patches/youtube/layout/hide/time/HideTimestampPa
 	public synthetic fun execute (Lapp/revanced/patcher/data/Context;)V
 }
 
+public final class app/revanced/patches/youtube/layout/overlaybuttons/OverlayButtonsResourcePatch : app/revanced/patcher/patch/ResourcePatch {
+	public static final field INSTANCE Lapp/revanced/patches/youtube/layout/overlaybuttons/OverlayButtonsResourcePatch;
+	public synthetic fun execute (Lapp/revanced/patcher/data/Context;)V
+	public fun execute (Lapp/revanced/patcher/data/ResourceContext;)V
+}
+
 public final class app/revanced/patches/youtube/layout/panels/popup/PlayerPopupPanelsPatch : app/revanced/patcher/patch/BytecodePatch {
 	public static final field INSTANCE Lapp/revanced/patches/youtube/layout/panels/popup/PlayerPopupPanelsPatch;
 	public fun execute (Lapp/revanced/patcher/data/BytecodeContext;)V
@@ -1646,6 +1652,7 @@ public final class app/revanced/patches/youtube/misc/playercontrols/BottomContro
 	public fun close ()V
 	public synthetic fun execute (Lapp/revanced/patcher/data/Context;)V
 	public fun execute (Lapp/revanced/patcher/data/ResourceContext;)V
+	public final fun setBottomPadding (Ljava/lang/String;)V
 }
 
 public final class app/revanced/patches/youtube/misc/playercontrols/PlayerControlsBytecodePatch : app/revanced/patcher/patch/BytecodePatch {
@@ -1693,6 +1700,7 @@ public final class app/revanced/patches/youtube/misc/settings/SettingsPatch$Pref
 	public final fun getFEED ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
 	public final fun getGENERAL_LAYOUT ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
 	public final fun getMISC ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
+	public final fun getOVERLAY_BUTTONS ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
 	public final fun getPLAYER ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
 	public final fun getSEEKBAR ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
 	public final fun getSHORTS ()Lapp/revanced/patches/shared/misc/settings/preference/BasePreferenceScreen$Screen;
@@ -1830,6 +1838,7 @@ public final class app/revanced/util/ResourceUtilsKt {
 	public static final fun asSequence (Lorg/w3c/dom/NodeList;)Lkotlin/sequences/Sequence;
 	public static final fun childElementsSequence (Lorg/w3c/dom/Node;)Lkotlin/sequences/Sequence;
 	public static final fun copyResources (Lapp/revanced/patcher/data/ResourceContext;Ljava/lang/String;[Lapp/revanced/util/ResourceGroup;)V
+	public static final fun copyXmlNode (Lapp/revanced/patcher/data/ResourceContext;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public static final fun copyXmlNode (Ljava/lang/String;Lapp/revanced/patcher/util/DomFileEditor;Lapp/revanced/patcher/util/DomFileEditor;)Ljava/lang/AutoCloseable;
 	public static final fun doRecursively (Lorg/w3c/dom/Node;Lkotlin/jvm/functions/Function1;)V
 	public static final fun forEachChildElement (Lorg/w3c/dom/Node;Lkotlin/jvm/functions/Function1;)V

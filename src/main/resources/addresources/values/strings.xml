@@ -34,6 +34,7 @@
             <string name="revanced_settings_screen_08_swipe_controls_title">Swipe controls</string>
             <string name="revanced_settings_screen_11_misc_title">Misc</string>
             <string name="revanced_settings_screen_12_video_title">Video</string>
+            <string name="revanced_settings_screen_13_overlay_buttons_title">Overlay button</string>
         </patch>
         <patch id="misc.debugging.DebuggingPatch">
             <string name="revanced_debug_screen_title">Debugging</string>
@@ -225,6 +226,12 @@
             <string name="revanced_hide_video_ads_title">Hide video ads</string>
             <string name="revanced_hide_video_ads_summary_on">Video ads are hidden</string>
             <string name="revanced_hide_video_ads_summary_off">Video ads are shown</string>
+        </patch>
+        <patch id="interaction.alwaysrepeat.AlwaysRepeatResourcePatch">
+            <string name="revanced_always_repeat_success">Always repeat success</string>
+            <string name="revanced_always_repeat_title">Show always repeat button</string>
+            <string name="revanced_always_repeat_summary_on">Button is shown. Tap to repeat video</string>
+            <string name="revanced_always_repeat_summary_off">Button is not shown</string>
         </patch>
         <patch id="interaction.copyvideourl.CopyVideoUrlResourcePatch">
             <string name="revanced_share_copy_url_success">URL copied to clipboard</string>
@@ -876,6 +883,36 @@
             <string name="revanced_alt_thumbnail_about_status_dearrow_stills">Showing DeArrow thumbnails. If a video has no DeArrow thumbnails then still video captures are shown</string>
             <string name="revanced_alt_thumbnail_dearrow_error">DeArrow temporarily not available (status code: %s)</string>
             <string name="revanced_alt_thumbnail_dearrow_error_generic">DeArrow temporarily not available</string>
+        </patch>
+        <patch id="layout.overlaybuttons.OverlayButtonsResourcePatch">
+            <string name="revanced_overlay_button">Overlay button</string>
+            <string name="revanced_overlay_button_always_repeat_summary">Tap to toggle always repeat states.</string>
+            <string name="revanced_overlay_button_always_repeat_enable">Always repeat is enabled</string>
+            <string name="revanced_overlay_button_always_repeat_disable">Always repeat is disable</string>
+            <string name="revanced_overlay_button_always_repeat_summary_on">Always repeat is on.</string>
+            <string name="revanced_overlay_button_always_repeat_summary_off">Always repeat is off.</string>
+            <string name="revanced_overlay_button_always_repeat_title">Show always repeat button</string>
+            <string name="revanced_overlay_button_copy_video_url_timestamp_title">Show copy timestamp URL button</string>
+            <string name="revanced_overlay_button_copy_video_url_timestamp_summary">Tap to copy video URL with timestamp. Tap and hold to copy video timestamp.</string>
+            <string name="revanced_overlay_button_copy_video_url_timestamp_summary_on">Button is shown. Tap to copy video URL with timestamp. Tap and hold to copy video without timestamp</string>
+            <string name="revanced_overlay_button_copy_video_url_timestamp_summary_off">Button is not shown</string>
+
+            <string name="revanced_overlay_button_copy_video_url_title">Show copy video URL button</string>
+            <string name="revanced_overlay_button_copy_video_url_summary">Tap to copy video URL. Tap and hold to copy video URL with timestamp.</string>
+            <string name="revanced_overlay_button_copy_video_url_summary_on">Button is shown. Tap to copy video URL. Tap and hold to copy video URL with timestamp</string>
+            <string name="revanced_overlay_button_copy_video_url_summary_off">Button is not shown</string>
+
+            <string name="revanced_overlay_button_external_downloader_title">Show external download button</string>
+            <string name="revanced_overlay_button_external_downloader_summary">Tap to launch external downloader.</string>
+            <string name="revanced_overlay_button_external_downloader_summary_on">Button is shown. Tap to launch external downloader.</string>
+            <string name="revanced_overlay_button_external_downloader_summary_off">Button is not shown.</string>
+
+            
+            <string name="revanced_overlay_button_speed_dialog_title">Show speed dialog button</string>
+            <string name="revanced_overlay_button_speed_dialog_summary">Tap to open speed dialog. Tap and hold to set playback speed to 1.0x.</string>
+            <string name="revanced_overlay_button_speed_dialog_summary_on">Button is shown. Tap to open speed dialog. Tap and hold to set playback speed to 1.0x.</string>
+            <string name="revanced_overlay_button_speed_dialog_summary_off">Button is not shown.</string>
+            <string name="revanced_overlay_button_speed_dialog_reset">Playback speed reseted (1.0x).</string>
         </patch>
         <patch id="misc.announcements.AnnouncementsPatch">
             <string name="revanced_announcements_title">Show ReVanced announcements</string>
