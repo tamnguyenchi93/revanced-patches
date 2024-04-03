@@ -1238,6 +1238,16 @@ public final class app/revanced/patches/youtube/ad/video/VideoAdsPatch : app/rev
 	public synthetic fun execute (Lapp/revanced/patcher/data/Context;)V
 }
 
+public final class app/revanced/patches/youtube/interaction/alwaysrepeat/AlwaysRepeatPatch : app/revanced/patcher/patch/BytecodePatch {
+	public static final field INSTANCE Lapp/revanced/patches/youtube/interaction/alwaysrepeat/AlwaysRepeatPatch;
+	public fun execute (Lapp/revanced/patcher/data/BytecodeContext;)V
+	public synthetic fun execute (Lapp/revanced/patcher/data/Context;)V
+}
+
+public final class app/revanced/patches/youtube/interaction/alwaysrepeat/fingerprints/AutoNavInformerFingerprint : app/revanced/util/patch/LiteralValueFingerprint {
+	public static final field INSTANCE Lapp/revanced/patches/youtube/interaction/alwaysrepeat/fingerprints/AutoNavInformerFingerprint;
+}
+
 public final class app/revanced/patches/youtube/interaction/copyvideourl/CopyVideoUrlBytecodePatch : app/revanced/patcher/patch/BytecodePatch {
 	public static final field INSTANCE Lapp/revanced/patches/youtube/interaction/copyvideourl/CopyVideoUrlBytecodePatch;
 	public fun execute (Lapp/revanced/patcher/data/BytecodeContext;)V
