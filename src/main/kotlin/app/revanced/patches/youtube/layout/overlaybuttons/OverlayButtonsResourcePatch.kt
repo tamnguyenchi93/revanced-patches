@@ -6,7 +6,7 @@ import app.revanced.patcher.patch.annotation.CompatiblePackage
 import app.revanced.patcher.patch.annotation.Patch
 import app.revanced.patcher.patch.options.PatchOption.PatchExtensions.booleanPatchOption
 
-// import app.revanced.patches.youtube.overlaybutton.alwaysrepeat.AlwaysRepeatPatch
+import app.revanced.patches.youtube.interaction.alwaysrepeat.AlwaysRepeatPatch
 // import app.revanced.patches.youtube.overlaybutton.download.hook.DownloadButtonHookPatch
 // import app.revanced.patches.youtube.overlaybutton.download.pip.DisablePiPPatch
 // import app.revanced.patches.youtube.utils.overridespeed.OverrideSpeedHookPatch
@@ -28,7 +28,7 @@ import app.revanced.util.copyXmlNode
     description = "Adds an option to display overlay buttons in the video player.",
     dependencies = [
         SettingsPatch::class,
-        // AlwaysRepeatPatch::class,
+        AlwaysRepeatPatch::class,
         // DisablePiPPatch::class,
         // DownloadButtonHookPatch::class,
         // OverrideSpeedHookPatch::class,
@@ -74,7 +74,7 @@ object OverlayButtonsResourcePatch : ResourcePatch() {
         description = "Apply wider bottom padding. Click effect may not be shown in the correct position."
     )
 
-    private const val INTEGRATIONS_PLAYER_PACKAGE = "Lapp/revanced/integrations/youtube/videoplayer"
+    private const val INTEGRATIONS_PLAYER_PACKAGE = "Lapp/revanced/integrations/youtube/overlaybuttons"
     private val OVERLAY_BUTTONS_DESCRIPTORS = listOf(
         "$INTEGRATIONS_PLAYER_PACKAGE/AlwaysRepeatButton;",
         // "$INTEGRATIONS_PLAYER_PACKAGE/CopyVideoUrlButton;",
