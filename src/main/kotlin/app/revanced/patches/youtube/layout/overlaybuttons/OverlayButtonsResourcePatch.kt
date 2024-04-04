@@ -80,7 +80,7 @@ object OverlayButtonsResourcePatch : ResourcePatch() {
         // "$INTEGRATIONS_PLAYER_PACKAGE/CopyVideoUrlButton;",
         // "$INTEGRATIONS_PLAYER_PACKAGE/CopyVideoUrlTimestampButton;",
         // "$INTEGRATIONS_PLAYER_PACKAGE/ExternalDownload",
-        // "$INTEGRATIONS_PLAYER_PACKAGE/SpeedDialog"
+        "$INTEGRATIONS_PLAYER_PACKAGE/SpeedDialogButton"
     )
 
     override fun execute(context: ResourceContext) {
